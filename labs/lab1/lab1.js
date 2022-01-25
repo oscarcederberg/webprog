@@ -63,7 +63,7 @@ class Salad {
     }
 }
 // Static Instance Counter. Is there a better way?
-Salad.instanceCounter = 0;
+// Salad.instanceCounter = 0;
 
 let myCaesarSalad = new Salad()
 .add('Sallad', imported.inventory['Sallad'])
@@ -108,7 +108,6 @@ class GourmetSalad extends Salad {
 
     add(name, properties, size = 1){
         size += (this.ingredients[name] ? this.ingredients[name].size : 0);
-        //console.log("name: " + name + ", size: " + size +", cost: " + size * properties.price);
         super.add(name, { ...properties, size: size});
         return this;
     }
@@ -134,10 +133,12 @@ console.log('Med extra bacon kostar den ' + myGourmetSalad.getPrice() + ' kr');
 
 console.log('\n--- Assignment 5 ---------------------------------------')
 console.log('Min gourmetsallad har uuid: ' + myGourmetSalad.uuid);
+console.log('Min sallad har uuid: ' + myCaesarSalad.uuid);
+console.log('Min gourmetsallad har: ' + myGourmetSalad.count('extra'));
 
 /**
  * Reflection question 4
- * Static properties are stored in the function object.
+ * Static properties are stored in the Function object.
  */
 /**
  * Reflection question 5
