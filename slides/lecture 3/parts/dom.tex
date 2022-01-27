@@ -19,9 +19,9 @@ Document Object Model\\
 \color{structure}
 Document Object Model\\
 \begin{itemize}\color{structure}
-\item \html{Document} is a global object for accessing the DOM
+\item \html{Document} is a class for representing the DOM
 \item the nodes inherits from the \html{Element.prototype} object
-\item the global globala variables \code{document} stores the DOM
+\item the globala variable \code{document} refers to the DOM
 \item API for
   \begin{itemize}
     \item navigate in the tree: \code{document.body.getElementsByTagName( 'H1' )}
@@ -34,25 +34,37 @@ Document Object Model\\
 
 %---------------------------------------------------------------------------------
 \begin{frame}[fragile]
+\frametitle{jQuery}
+\color{structure}
+(not part of the course)\\
+\begin{itemize}\color{structure}
+\item jQuery is an old library for simple access to and modification of the DOM
+\item deprecated use react, vju, angular, or any modern framework
+\item common to find references in examples and on Stack Overflow et.c.
+\item all functions are place under \$ in the global namespace
+\item now you can guess what \code{$(".test").hide()} does\\ \emph{Hint:} jQuery use the same pattern matching syntax as css
+\end{itemize}
+\end{frame}
+
+%---------------------------------------------------------------------------------
+\begin{frame}[fragile]
 \frametitle{Events}
 \color{structure}
 
 \begin{itemize}\color{structure}
-\item the browser creates events \code{blur, submit, resize, keydown}
+\item the browser creates events: \code{blur, submit, resize, keydown}
 \item call-back-methods
 \begin{itemize}
-  \item \code{<p id="demo" onclick='document.getElementById("demo").style.color = "red"'>}
+  \item \code{<p id="demo" onclick="myHandler(event)">}
   \item \code{addEventListener(eventType, handler[, options])}
 \end{itemize}
-\item \code{myEventHandler(event)}, \code{event} inherits from \code{Event}
-\item \code{this} and \code{event.target} points to the source, the DOM element
+\item \code{event} is an instance of \code{Event}
 \item event propagates trough the DOMen, three phases:
   \begin{enumerate}
     \item capturing
     \item target
     \item bubbling
   \end{enumerate}
-\item \code{event.stopPropagation()}
 \end{itemize}
 
 \end{frame}
@@ -68,10 +80,39 @@ Document Object Model\\
 
 %---------------------------------------------------------------------------------
 \begin{frame}[fragile]
+\frametitle{Events}
+\color{structure}
+
+\begin{itemize}\color{structure}
+\item not all events propagate, \code{focus} do not.
+\item \code{this}===\code{event.currentTarget}, the DOM element containing the handler
+\item \code{event.target} the source of the event, a DOM element
+\item event propagates trough the DOMen, three phases:
+  \begin{enumerate}
+    \item capturing
+    \item target
+    \item bubbling
+  \end{enumerate}
+\item \code{event.stopPropagation()}
+\item \code{event.preventDefault()}
+\end{itemize}
+
+\end{frame}
+
+%---------------------------------------------------------------------------------
+\begin{frame}[fragile]
 \frametitle{Forms}
 \color{structure}
 
-Default behaviour for many events (click on submit button, enter in input field)
+\begin{lstlisting}[style=htmlcssjs]
+<form onsubmit="myFunction(event)">
+  <label for="id-checkbox">Checkbox:</label>
+  <input type="checkbox" id="id-checkbox"/>
+  <input type="submit" value="Send Request">
+</form>
+\end{lstlisting}
+
+Form submission is default behaviour for many events (click on submit button, enter in input field)
 \begin{itemize}
   \item submit the form using HTTP
   \item the server responds with a new html-page
