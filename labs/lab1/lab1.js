@@ -62,8 +62,6 @@ class Salad {
         .reduce((acc, _) => acc + 1, 0);
     }
 }
-// Static Instance Counter. Is there a better way?
-// Salad.instanceCounter = 0;
 
 let myCaesarSalad = new Salad()
 .add('Sallad', imported.inventory['Sallad'])
