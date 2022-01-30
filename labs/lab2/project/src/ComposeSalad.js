@@ -1,4 +1,6 @@
 import {Component} from 'react';
+import inventory from './inventory.ES6';
+import Salad from './Salad';
 
 /* Reflection question 1
  * The main difference I would say is states. With Classes they can be implemented very easily, while functions are a bit more complex (unless done with hooks). Classes also have constructors, which functions do not. Functions simply returns, and doesn't call render() like classees do.
@@ -65,7 +67,16 @@ class ComposeSalad extends Component {
     }
 
     handleSubmit(event){
-        this.handleSalad({...this.state});
+        let salad = new Salad();
+        salad.add(this.state.foundation, inventory[this.state.foundation]);
+        salad.add(this.state.protein, inventory[this.state.protein]);
+        salad.add(this.state.dressing, inventory[this.state.dressing]);
+
+        Object.keys(this.state.extras)
+        .filter(extra => this.state.extras[extra])
+        .forEach(extra => salad.add(extra, inventory[extra]));
+
+        this.handleSalad(salad);
         this.setState(this.baseSet);
         event.preventDefault();
     }

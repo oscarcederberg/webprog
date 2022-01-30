@@ -4,14 +4,23 @@ class ViewOrder extends Component{
     constructor(props){
         super(props);
         this.recieveSalads = props.recieveSalads;
-        this.renderSalad = this.renderSalad.bind(this);
+        this.renderSalads = this.renderSalads.bind(this);
     }
 
-    renderSalad(salad){
-        return(
-            <p>
-                SALAD
-            </p>
+    renderSalads(salads){
+        return (
+            <>
+             {salads.map((salad) =>
+                <div key={salad.uuid}>
+                    <h3>🥗 Sallad</h3>
+                    <p>Foundation: {salad.get('foundation')}<br />
+                    Protein: {salad.get('protein')}<br />
+                    Extras: {salad.count('extra') > 0 ? salad.get('extra') : 'None'}<br />
+                    Dressing: {salad.get('dressing')}</p>
+                    <p>Price: {salad.getPrice()} Kr</p>
+                </div>
+            )}
+            </>
         )
     }
 
@@ -20,14 +29,8 @@ class ViewOrder extends Component{
 
         return(
             <div>
-                {JSON.stringify(salads)}
                 <h1>Orders</h1>
-                {salads.map((salad) =>
-                    <div>
-                        <h3>Foundation</h3>
-                        <p>{salad.foundation}</p>
-                    </div>
-                )}
+                {this.renderSalads(salads)}
             </div>
         )
     }

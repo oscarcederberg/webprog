@@ -29,11 +29,15 @@ class App extends Component {
         <span className="fs-4">Min egen salladsbar</span>
       </header>
 
-      <ViewOrder recieveSalads={() => {return this.state.salads}}/>
-
       <div className="continer col-12">
         <div className="row h-200 p-5 bg-light border rounded-3">
           <ComposeSalad inventory={inventory} handleSalad={this.handleSalad}/>
+        </div>
+      </div>
+
+      <div className="continer col-12">
+        <div className="row h-200 p-5 bg-light border rounded-3">
+          <ViewOrder recieveSalads={() => {return this.state.salads}}/>
         </div>
       </div>
 

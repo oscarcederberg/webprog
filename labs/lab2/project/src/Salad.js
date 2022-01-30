@@ -3,6 +3,12 @@ class Salad {
     constructor(){
         this.uuid = 'salad_' + Salad.instanceCounter++;
         this.ingredients = {};
+
+        this.add = this.add.bind(this);
+        this.remove = this.remove.bind(this);
+        this.get = this.get.bind(this);
+        this.getPrice = this.getPrice.bind(this);
+        this.count = this.count.bind(this);
     }
 
     add(name, properties){
@@ -13,6 +19,13 @@ class Salad {
     remove(name){
         delete this.ingredients[name];
         return this;
+    }
+
+    get(part){
+        return Object.entries(this.ingredients)
+        .filter((entry) => entry[1][part])
+        .map((entry) => entry[0])
+        .join(', ');
     }
 
     getPrice(){
