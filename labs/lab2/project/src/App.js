@@ -26,7 +26,7 @@ class App extends Component {
     return (
       <div className="container py-4">
       <header className="pb-3 mb-4 border-bottom">
-        <span className="fs-4">Min egen salladsbar</span>
+        <span className="fs-4">My own saladbar</span>
       </header>
 
       <div className="continer col-12">
