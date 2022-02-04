@@ -32,6 +32,7 @@
 %\usepackage{listcode}
 
 \newcommand{\code}[1]{\lstinline{#1}}
+\usepackage{../listcode}
 
 \title[routing and form validation]{Routing and Form Validation}
 \author[EDAF90]{%
@@ -45,7 +46,7 @@
 	\tcbuselibrary{listingsutf8}
 \fi
 \newtcblisting{CodeBox}[2][]{% Only code
-  colframe=black,
+  colframe=white,
   colback=white,
   arc=1pt,
   boxrule=0.5pt,
@@ -54,7 +55,7 @@
   coltitle=black,
   fonttitle=\sffamily,
   listing only,
-  hbox,
+%  hbox,
   listing options={
     basicstyle=\small\ttfamily,
     breaklines=true,
