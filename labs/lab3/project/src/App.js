@@ -38,6 +38,7 @@ class App extends Component {
     return (
         <Routes>
           <Route path="/" element={this.renderPageContent()} />
+
           <Route path="/compose-salad" element={
             <div className="continer col-12">
               <div className="row h-200 p-5 bg-light border rounded-3">
@@ -45,11 +46,19 @@ class App extends Component {
               </div>
             </div>
           } />
+
           <Route path="/view-order" element={
             <div className="continer col-12">
               <div className="row h-200 p-5 bg-light border rounded-3">
                 <ViewOrder recieveSalads={() => {return this.state.salads}}/>
               </div>
+            </div>
+          } />
+
+          <Route path="*" element={
+            <div>
+              <h2>404</h2>
+              <h3>Page not found</h3>
             </div>
           } />
         </Routes>
@@ -58,8 +67,7 @@ class App extends Component {
 
   renderPageContent(){
     return (
-      <>
-      </>
+      <h2>Welcome!</h2>
     )
   }
 }
@@ -76,7 +84,12 @@ function Navbar() {
   return (
     <ul className="nav nav-tabs">
       <li className="nav-item">
-        <Link className="nav-link" to="/compose-salad">
+        <Link className="nav-link" to="/">
+          Home
+        </Link>
+      </li>
+      <li className="nav-item">
+        <Link className="nav-link" to="compose-salad">
           Compose a salad
         </Link>
       </li>
