@@ -3,7 +3,6 @@ import { Component } from "react";
 class ViewOrder extends Component{
     constructor(props){
         super(props);
-        this.recieveSalads = props.recieveSalads;
         this.renderSalads = this.renderSalads.bind(this);
     }
 
@@ -25,12 +24,10 @@ class ViewOrder extends Component{
     }
 
     render(){
-        const salads = this.recieveSalads();
-
         return(
             <div>
                 <h1>Orders</h1>
-                {this.renderSalads(salads)}
+                {this.renderSalads(this.props.recieveSalads)}
             </div>
         )
     }

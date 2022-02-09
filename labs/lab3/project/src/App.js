@@ -1,10 +1,11 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import inventory from './inventory.ES6';
-import ComposeSalad from './ComposeSalad';
 import { Component } from "react";
 import ViewOrder from './ViewOrder';
-import { Link, Route, Routes } from 'react-router-dom';
+import { NavLink, Route, Routes } from 'react-router-dom';
+import ComposeSaladWrapper from './ComposeSaladWrapper';
+import ViewIngredient from './ViewIngredient';
 
 class App extends Component {
   constructor(props){
@@ -18,9 +19,9 @@ class App extends Component {
   }
   
   handleSalad(salad){
-    this.setState({
-      salads: [...this.state.salads, salad]
-    });
+    this.setState(state => ({
+      salads: [...state.salads, salad]
+    }));
   }
 
   render(){
@@ -42,7 +43,7 @@ class App extends Component {
           <Route path="/compose-salad" element={
             <div className="continer col-12">
               <div className="row h-200 p-5 bg-light border rounded-3">
-                <ComposeSalad inventory={inventory} handleSalad={this.handleSalad}/>
+                <ComposeSaladWrapper inventory={inventory} handleSalad={this.handleSalad}/>
               </div>
             </div>
           } />
@@ -50,7 +51,15 @@ class App extends Component {
           <Route path="/view-order" element={
             <div className="continer col-12">
               <div className="row h-200 p-5 bg-light border rounded-3">
-                <ViewOrder recieveSalads={() => {return this.state.salads}}/>
+                <ViewOrder recieveSalads={this.state.salads}/>
+              </div>
+            </div>
+          } />
+
+          <Route path="/view-ingredient/:name" element={
+            <div className="continer col-12">
+              <div className="row h-200 p-5 bg-light border rounded-3">
+                <ViewIngredient inventory={inventory} />
               </div>
             </div>
           } />
@@ -83,20 +92,20 @@ function Header() {
 function Navbar() {
   return (
     <ul className="nav nav-tabs">
-      <li className="nav-item">
-        <Link className="nav-link" to="/">
+      <li className="nav-items">
+        <NavLink className="nav-link" to="/">
           Home
-        </Link>
+        </NavLink>
       </li>
       <li className="nav-item">
-        <Link className="nav-link" to="compose-salad">
+        <NavLink className="nav-link" to="compose-salad">
           Compose a salad
-        </Link>
+        </NavLink>
       </li>
       <li>
-        <Link className="nav-link" to="/view-order">
+        <NavLink className="nav-link" to="/view-order">
           View your order
-        </Link>
+        </NavLink>
       </li>
     </ul>
   )
