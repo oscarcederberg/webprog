@@ -145,7 +145,6 @@ function Navbar() {
 Dod you notice that the paths are hyphen separated word ("compose-salad"). This is by tradition for urls, which we will discuss later in the course. Add a second link for the \code{ViewOrder} page. Go to your browser and klick on the links. The path in your browser changes (url), the selected page is highlighted in the menu, and you use the browser back icon to go to the previous page. However, all pages look the same.
 
 \noindent \emph{Reflection Question 2:} If you use \code{nav-pills} instead of \code{nav-tabs} the selected page is no longer highlighted in the menu, why? \emph{Hint:} \code{<NavLink>} and the \code{active} css class.
-\noindent \emph{Reflection Question 3:} What is the difference between \code{<Link to="compose-salad"} and \code{<Link to="/compose-salad"}. Try it, look in the browser url field.
 
 \item Let's render the page content based on the navigation bar selection, either the \code{ComposeSalad}, or the \code{ViewOrder} component. For this you use \code{<Routes>} and \code{<Route>}. If you followed my code clean up advice above you should replace \code{this.renderPageContent()} with \code{this.renderRouter()} and place your router code in this function. Your solution should handle four cases:
 \\ \code{http://localhost:3000/compose-salad} $\rightarrow$ render the \code{ComposeSalad} component
@@ -169,13 +168,19 @@ export default ComposeSaladWrapper;
 \noindent Update \code{ComposeSalad} so it jumps to the view order page when a salad is ordered.
 
 
-\item Create a component, \code{ViewIngredient}, that shows the information from the \code{inventory} object about an ingredient, i.e vegan, lactose et.c. You should be able to navigate to the \code{ViewIngredient} component by clicking on an ingredient in the \code{ComposeSalad} component. To solv this, you should:
+\item Create a component, \code{ViewIngredient}, that shows the information from the \code{inventory} object about an ingredient, i.e vegan, lactose et.c. You should be able to navigate to the \code{ViewIngredient} component by clicking on the extras in the \code{ComposeSalad} component. To solv this, you should:
 
 \begin{itemize}
   \item Add a \code{<Link ...>} around each ingredient name in \code{ComposeSalad}.
   \item Create a functional component: \code{ViewIngredient}. The ingredient name can be found in the params. Pass \code{inventory} to it as a prop.
   \item Add \code{<Route path='/view-ingredient/:name' ...>} to your router.
 \end{itemize}
+
+\noindent \emph{Reflection Question 3:} What is the difference between \code{<Link to="/view-ingredient/:name"} and \code{<Link to="view-ingredient/:name"}. Try it, look in the browser url field.
+
+\emph{Oprional assignemnt:} Add a "view info" button next to the select dropdowns. When the user clicks on it, jump to the \code{view-ingredient} page for the selected ingredient.
+
+\emph{Note:} If you return to the \code{compose-salad} page after viewing the info about an ingredient the form will be empty. This is because React will create a new \code{ComposeSalad} object when you navigate to the page (even if you use the browser history). Consequently any earlier state is lost. Normally you would use pop-ups to show the ingredient info, but here I want you to get experience using router params.
 
 \item Now your app is split to different pages, where each page have a clear functionality. This is good, do not confuse the user by putting too many unrelated things on one page. Let's move on to another important part of the user experience, form validation and feedback. When a user orders a salad we want to make sure that:
 \begin{itemize}
