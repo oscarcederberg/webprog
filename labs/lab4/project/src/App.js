@@ -32,26 +32,28 @@ class App extends Component {
   }
 
   componentDidMount() {
-    let inventory = this.fetchInventory();
-    let salads = JSON.parse(window.localStorage.getItem("salads"))
-    .map(salad => {
-      return new Salad(salad.ingredients);
-    });
+    this.fetchInventory()
+    .then(inventory => {
+      let salads = JSON.parse(window.localStorage.getItem("salads"))
+      .map(salad => {
+        return new Salad(salad.ingredients);
+      });
 
-    this.setState({
-      inventory: inventory,
-      salads: salads
+      this.setState({
+        inventory: inventory,
+        salads: salads
+      });
     });
   }
 
-  fetchInventory() {
+  async fetchInventory() {
     const url = 'http://localhost:8080/'
     let inventory = {};
 
     const foundationsResponse = safeFetch(url + 'foundations/')
     .then(base =>
       Promise.all(
-      Object.values(base).map(name => {
+      base.map(name => {
         return safeFetch(url + 'foundations/' + name)
         .then(resp => inventory[name] = resp);
       }))
@@ -60,7 +62,7 @@ class App extends Component {
     const proteinsResponse = safeFetch(url + 'proteins/')
     .then(base =>
       Promise.all(
-      Object.values(base).map(name => {
+      base.map(name => {
         return safeFetch(url + 'proteins/' + name)
         .then(resp => inventory[name] = resp);
       }))
@@ -69,7 +71,7 @@ class App extends Component {
     const extrasResponse = safeFetch(url + 'extras/')
     .then(base =>
       Promise.all(
-      Object.values(base).map(name => {
+      base.map(name => {
         return safeFetch(url + 'extras/' + name)
         .then(resp => inventory[name] = resp);
       }))
@@ -78,13 +80,13 @@ class App extends Component {
     const dressingsResponse = safeFetch(url + 'dressings/')
     .then(base =>
       Promise.all(
-      Object.values(base).map(name => {
+      base.map(name => {
         return safeFetch(url + 'dressings/' + name)
         .then(resp => inventory[name] = resp);
       }))
     );
 
-    Promise.all([foundationsResponse, proteinsResponse, extrasResponse, dressingsResponse]);
+    await Promise.all([foundationsResponse, proteinsResponse, extrasResponse, dressingsResponse]);
     
     return inventory;
   }

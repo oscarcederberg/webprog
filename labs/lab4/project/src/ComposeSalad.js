@@ -41,10 +41,6 @@ class ComposeSalad extends Component {
         this.handleSalad = this.props.handleSalad;
         this.navigate = this.props.navigate;
 
-        this.foundations = Object.keys(inventory).filter(name => inventory[name].foundation);
-        this.proteins = Object.keys(inventory).filter(name => inventory[name].protein);
-        this.extras = Object.keys(inventory).filter(name => inventory[name].extra);
-        this.dressings = Object.keys(inventory).filter(name => inventory[name].dressing);
         
         this.baseSet = {
             foundation: "",
@@ -98,20 +94,24 @@ class ComposeSalad extends Component {
     }
 
     render(){
+        let foundations = Object.keys(inventory).filter(name => inventory[name].foundation);
+        let proteins = Object.keys(inventory).filter(name => inventory[name].protein);
+        let extras = Object.keys(inventory).filter(name => inventory[name].extra);
+        let dressings = Object.keys(inventory).filter(name => inventory[name].dressing);
         return (
             <form className="row g-3" onSubmit={this.handleSubmit} noValidate>
                 <div className="col-md-6">
                     <h1>Pick a foundation</h1>
-                    <IngredientSelect selectName="foundation" onChange={this.handleChange} selections={this.foundations} text="Choose a foundation" selected={this.state.foundation} />
+                    <IngredientSelect selectName="foundation" onChange={this.handleChange} selections={foundations} text="Choose a foundation" selected={this.state.foundation} />
                 </div>
 
                 <div className="col-md-6">
                     <h1>Pick a protein</h1>
-                    <IngredientSelect selectName="protein" onChange={this.handleChange} selections={this.proteins} text="Choose a protein" selected={this.state.protein} />
+                    <IngredientSelect selectName="protein" onChange={this.handleChange} selections={proteins} text="Choose a protein" selected={this.state.protein} />
                 </div>
 
                 <h1>Pick extras</h1>
-                {this.extras.map(name =>
+                {extras.map(name =>
                     <div className="form-check col-4" key={name}>
                         <input className="form-check-input" name={name} type="checkbox" checked={this.state.extras[name] || false} onChange={this.handleChange} id={name} />
                         <Link to={"/view-ingredient/" + name}>
@@ -122,7 +122,7 @@ class ComposeSalad extends Component {
                 
                 <div className="col-md-12">
                     <h1>Pick a dressing</h1>
-                    <IngredientSelect selectName="dressing" onChange={this.handleChange} selections={this.dressings} text="Choose a dressing" selected={this.state.dressing} />
+                    <IngredientSelect selectName="dressing" onChange={this.handleChange} selections={dressings} text="Choose a dressing" selected={this.state.dressing} />
                 </div>
 
                 <div className="col-12">
