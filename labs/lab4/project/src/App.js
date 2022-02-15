@@ -6,6 +6,7 @@ import { NavLink, Route, Routes } from 'react-router-dom';
 import ComposeSaladWrapper from './ComposeSaladWrapper';
 import ViewIngredient from './ViewIngredient';
 import inventory from './inventory.ES6';
+import Salad from './Salad';
 
 function safeFetch(url){
   return fetch(url)
@@ -22,8 +23,8 @@ class App extends Component {
     super(props);
 
     this.state = {
-      salads: [],
-      inventory: {}
+      inventory: {},
+      salads: []
     };
     
     this.handleSalad = this.handleSalad.bind(this);
@@ -31,7 +32,16 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.fetchInventory();
+    let inventory = this.fetchInventory();
+    let salads = JSON.parse(window.localStorage.getItem("salads"))
+    .map(salad => {
+      return new Salad(salad.ingredients);
+    });
+
+    this.setState({
+      inventory: inventory,
+      salads: salads
+    });
   }
 
   fetchInventory() {
@@ -75,14 +85,17 @@ class App extends Component {
     );
 
     Promise.all([foundationsResponse, proteinsResponse, extrasResponse, dressingsResponse]);
-  
-    this.setState({inventory: inventory})
+    
+    return inventory;
   }
   
   handleSalad(salad) {
+    let salads = [...this.state.salads, salad]; 
     this.setState(state => ({
-      salads: [...state.salads, salad]
+      salads: salads
     }));
+
+    window.localStorage.setItem("salads", JSON.stringify(salads))
   }
 
   render() {

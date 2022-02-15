@@ -81,7 +81,7 @@ class ComposeSalad extends Component {
         event.target.parentElement.classList.add("was-validated");
         
         if(event.target.checkValidity()){
-            let salad = new Salad();
+            let salad = new Salad({});
             salad.add(this.state.foundation, inventory[this.state.foundation]);
             salad.add(this.state.protein, inventory[this.state.protein]);
             salad.add(this.state.dressing, inventory[this.state.dressing]);

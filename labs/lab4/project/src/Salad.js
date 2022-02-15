@@ -1,8 +1,9 @@
+import {v4 as uuidv4} from 'uuid';
+
 class Salad {
-    static instanceCounter = 0;
-    constructor(){
-        this.uuid = 'salad_' + Salad.instanceCounter++;
-        this.ingredients = {};
+    constructor(ingredients){
+        this.uuid = uuidv4();
+        this.ingredients = ingredients;
 
         this.add = this.add.bind(this);
         this.remove = this.remove.bind(this);
